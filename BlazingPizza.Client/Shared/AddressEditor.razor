@@ -1,0 +1,108 @@
+﻿<div class="form-field">
+    <label>Name:</label>
+    <div>
+        <InputText @bind-Value="Address.Name" />
+        <ValidationMessage For="@(() => Address.Name)" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>Line 1:</label>
+    <div>
+        <InputText @bind-Value="Address.Line1" />
+        <ValidationMessage For="@(() => Address.Line1)" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>Line 2:</label>
+    <div>
+        <InputText @bind-Value="Address.Line2" />
+        <ValidationMessage For="@(() => Address.Line2)" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>City:</label>
+    <div>
+        <InputText @bind-Value="Address.City" />
+        <ValidationMessage For="@(() => Address.City)" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>Region:</label>
+    <div>
+        <InputText @bind-Value="Address.Region" />
+        <ValidationMessage For="@(() => Address.Region)" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>Postal code:</label>
+    <div>
+        <InputText @bind-Value="Address.PostalCode" />
+        <ValidationMessage For="@(() => Address.PostalCode)" />
+    </div>
+</div>
+<style>
+/* Stile per il contenitore principale del form */
+.form-container {
+    width: 70%; /* Ridimensiona il contenitore */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Rendi il bordo del contenitore più rotondo */
+    background-color: #f9f9f9;
+}
+
+/* Stile per i campi del form */
+.form-field {
+    margin-bottom: 15px; /* Riduci lo spazio tra i campi */
+}
+.form-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Stile per gli input del form */
+.form-field input {
+    width: calc(100% - 10px); /* Sottrai il padding */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Rendi i bordi degli input più rotondi */
+}
+
+/* Stile per i messaggi di validazione */
+.validation-message {
+    color: red;
+    font-size: 12px;
+}
+
+/* Stile per il pulsante "Ordina" */
+.btn {
+    padding: 12px 24px; /* Aumenta leggermente le dimensioni del pulsante */
+    border: none;
+    border-radius: 20px; /* Rendi i bordi del pulsante più rotondi */
+    cursor: pointer;
+    background-color: #dc3545; /* Rosso */
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+/* Animazione al passaggio del mouse */
+.btn:hover {
+    background-color: #c82333; /* Rosso più scuro */
+}
+
+/* Animazione al clic */
+.btn:active {
+    transform: translateY(2px); /* Sposta il pulsante verso il basso di 2px */
+}
+
+</style>
+
+@code {
+    [Parameter, EditorRequired] public Address Address { get; set; } = new();
+}

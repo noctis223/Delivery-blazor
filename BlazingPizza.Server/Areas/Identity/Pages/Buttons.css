@@ -1,0 +1,83 @@
+/* Stile generale per il contenitore principale */
+.content {
+    margin: 20px auto;
+    width: 80%;
+}
+
+/* Stile per il titolo "Log in" */
+.main h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+/* Stile per i form */
+.main form {
+    margin-top: 20px;
+}
+
+/* Stile per le etichette dei form */
+.main form label {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Stile per i campi di input */
+.main form input[type="email"],
+.main form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Stile per il bottone di login */
+.main form #login-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main form #login-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per i link */
+.main form a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.main form a:hover {
+    text-decoration: underline;
+}
+
+/* Stile per il form di accesso tramite altri servizi */
+.main .col-md-6 section h3 {
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Stile per il pulsante di accesso tramite Google */
+.main .col-md-6 section button[name="provider"][value="Google"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #db4437;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main .col-md-6 section button[name="provider"][value="Google"]:hover {
+    background-color: #c1351b;
+}

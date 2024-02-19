@@ -1,0 +1,123 @@
+@page "/payment"
+@attribute [Authorize]
+@inject OrderState OrderState
+@inject OrdersClient OrdersClient
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject HttpClient httpClient
+@using Radzen
+@using Radzen.Blazor
+
+    
+<div style="text-align: center;">
+    <h1 class="mb-4" style="font-size: 28px;">Scegli Il metodo di Pagamento</h1>
+    <div style="text-align: center;">
+        <br>
+
+    <p style="font-size: 24px; color: #007bff; margin-top: 20px;">Paga con PayPal</p>
+    <button style="width: 90px; height: 30px; border: none; padding: 0;" @onclick="@(e => PlaceOrder())">
+        <img src="img/paypal.jpg" alt="PayPal" style="width: 100%; height: 100%; object-fit: cover;">
+    </button>
+   
+
+</div>
+ <br>
+<h3 class="mb-4" style="font-size: 28px;">Altri Metodi</h3>
+
+
+    <RadzenFieldset Style="max-width: 400px; margin: 0 auto;">
+        <ChildContent>
+            <div>
+ <label style="margin-right: 20px;">
+    <input type="radio" name="paymentMethod" value="Contanti" @onclick="@(e => SetPaymentMethod("Contanti"))">
+    Contanti
+</label>
+<label>
+    <input type="radio" name="paymentMethod" value="CreditCard" @onclick="@(e => SetPaymentMethod("CreditCard"))">
+    Credit Card
+</label>
+
+
+            </div>
+        </ChildContent>
+    </RadzenFieldset>
+
+
+    @if (showCreditCardForm)
+    {
+        <RadzenCard Style="max-width: 400px; margin: 20px auto; text-align: center; ">
+            <Header>
+                <h2 class="text-center" style="font-size: 24px; color: #333;">Credit Card Information</h2>
+            </Header>
+            <Content>
+                <RadzenForm>
+                    <RadzenLabel Text="Nome e Cognome" />
+                    <RadzenTextBox @bind-Value="utente" Style="width: 100%;" />
+
+                    <RadzenLabel Text="Card Number" />
+                    <RadzenTextBox @bind-Value="cardNumber" Style="width: 100%;" />
+
+                    <RadzenLabel Text="Expiry Date" />
+                    <RadzenTextBox @bind-Value="expiryDate" Style="width: 100%;" />
+
+                    <RadzenLabel Text="CVV" />
+                    <RadzenTextBox @bind-Value="cvv" Style="width: 100%;" />
+                </RadzenForm>
+            </Content>
+        </RadzenCard>
+    }
+
+    <div class="text-center mt-4">
+        <RadzenButton Text="Process Payment" ButtonType="ButtonType.Button" Style="width: 200px; font-size: 18px; background-color: #ff0000; color: #fff;" Click="@PlaceOrder" />
+    </div>
+</div>
+<div>
+
+</div>
+<div>
+    
+</div>
+
+
+
+@code {
+    string selectedPaymentMethod;
+    bool showCreditCardForm = false;
+
+    string utente;
+    string cardNumber;
+    string expiryDate;
+    string cvv;
+
+    void ShowPaymentForm(string paymentMethod)
+    {
+        showCreditCardForm = paymentMethod == "CreditCard";
+     
+    }
+
+    void SetPaymentMethod(string method)
+{
+    selectedPaymentMethod = method;
+    ShowPaymentForm(selectedPaymentMethod);
+}
+
+
+    async Task PlaceOrder()
+    {
+        try
+        {   OrderState.Order.setPaymentMethod(selectedPaymentMethod);
+            Console.WriteLine(OrderState.Order.PaymentMethod);
+            var newOrderId = await OrdersClient.PlaceOrder(OrderState.Order);
+            OrderState.ResetOrder();
+            Console.WriteLine(OrderState.Order.PaymentMethod);
+            NavigationManager.NavigateTo($"myorders/{newOrderId}");
+        }
+        catch (AccessTokenNotAvailableException ex)
+        {
+            ex.Redirect();
+        }
+    }
+
+
+
+}
